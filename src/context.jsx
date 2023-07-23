@@ -16,17 +16,19 @@ const AppContext = createContext();
 const initialState = {
   loading: false,
   cart: new Map(cartItems.map((item) => [item.id, item])),
-  //   cart: new Map(),
 };
 
 export const AppProvider = ({ children }) => {
-  //   const greeting = 'Hello there';
-
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const clearCart = () => {
+    dispatch({ type: CLEAR_CART });
+  };
+
   return (
-    // <AppContext.Provider value={{ greeting }}>{children}</AppContext.Provider>
-    <AppContext.Provider value={{ ...state }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, clearCart }}>
+      {children}
+    </AppContext.Provider>
   );
 };
 
